@@ -10,10 +10,11 @@ const allowedOrigins = ['http://localhost:4200', 'http://localhost:3000'];
 const app = new express();
 app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
+require('dotenv').config();
 
 let userObj;
 
-const dbUrl = "mongodb+srv://meh:zwfH89QAmamXLqV@prf-cluster.9ul6u.mongodb.net/prf_bead?retryWrites=true&w=majority&authSource=admin";
+const dbUrl = process.env.MONGOURL;
 const dbNev = "prfdb"
 const client = new MongoClient(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -123,7 +124,7 @@ app.use((req, res, next) => {
 });
 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log('App is running at 3000')
 });
 

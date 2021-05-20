@@ -1,6 +1,7 @@
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb+srv://meh:zwfH89QAmamXLqV@prf-cluster.9ul6u.mongodb.net/prf_bead?retryWrites=true&w=majority&authSource=admin";
+const url = process.env.MONGOURL;
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 const dbNev = "prfdb"
 
