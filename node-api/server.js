@@ -125,6 +125,6 @@ app.use((req, res, next) => {
 
 
 app.listen(process.env.PORT, () => {
-  console.log('App is running at 3000')
+  console.log('App is running at ', process.env.PORT)
 });
 
