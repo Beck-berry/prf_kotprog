@@ -1,1 +1,20 @@
-<p>home works!</p>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Fotó</th>
+    <th scope="col">Név</th>
+    <th scope="col">Bemutatás</th>
+    <th scope="col">Ár</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let kitten of kittens">
+    <th scope="row">{{ kitten.id }}</th>
+    <td><img src="{{ kitten.img }}" alt="{{ kitten.img }}" /></td>
+    <td>{{ kitten.name }}</td>
+    <td>{{ kitten.desc }}</td>
+    <td>{{ kitten.price }}</td>
+  </tr>
+  </tbody>
+</table>

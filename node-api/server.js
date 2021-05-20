@@ -113,18 +113,28 @@ app.post('/register', (req, res) => {
   res.status(200).json({ "statusCode": 200 });
 });
 
-
 app.get('/logout', isLoggedIn, (req, res) => {
   req.logout();
   res.status(200).json({ "statusCode": 200 });
 });
 
-app.use((req, res, next) => {
-  res.status(404).send("A kért oldal nem található.")
-});
+const angularPath = '../frontend/dist/PRF';
+app.use(express.static(angularPath, {}))
+app.get('/', function (req, res) {
+  res.sendFile(angularPath + '/index.html', { root: __dirname })
+})
 
+app.post('/home', (req, res) => {
+  client.connect(function(err, db) {
+    if (err) throw err;
+    const dbo = db.db(dbNev);
+    dbo.collection("Kittens").find({}).toArray((err, result) => {
+      if (err) throw err;
+      client.close();
+    });
+  });
+})
 
 app.listen(process.env.PORT, () => {
   console.log('App is running at ', process.env.PORT)
 });
-
