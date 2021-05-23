@@ -6,7 +6,6 @@
     <th scope="col">Név</th>
     <th scope="col">Bemutatás</th>
     <th scope="col">Ár</th>
-    <th scope="col">-</th>
   </tr>
   </thead>
   <tbody>
@@ -16,7 +15,7 @@
     <td>{{ kitten.name }}</td>
     <td>{{ kitten.desc }}</td>
     <td>{{ kitten.price }}</td>
-    <td><button (click)="addToCart(kitten)">Elviszem!</button></td>
   </tr>
   </tbody>
 </table>
+<p>Összesen {{ sumAr }}</p>

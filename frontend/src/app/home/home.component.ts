@@ -18,4 +18,18 @@ export class HomeComponent implements OnInit {
       .subscribe( data => this.kittens = data);
   }
 
+  addToCart(k: Kitten){
+    alert(k.name + ' hozzáadva a kosárhoz!');
+    const cartAll = localStorage.getItem('cart');
+    if (cartAll){
+      const cart = JSON.parse(cartAll);
+      cart.push(k);
+      localStorage.setItem('cart', JSON.stringify(cart));
+    } else {
+      const cart = [];
+      cart.push(k);
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+  }
+
 }
