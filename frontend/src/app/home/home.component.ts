@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Kitten } from '../kitten';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.post<Kitten[]>('http://localhost:3000/home', { responseType: 'text', withCredentials: true })
+    this.http.post<Kitten[]>(environment.serverUrl + '/home', { responseType: 'text', withCredentials: true })
       .subscribe( data => this.kittens = data);
   }
 

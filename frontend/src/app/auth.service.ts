@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,20 +10,26 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   public isAuthenticated(): boolean {
-    const userData = localStorage.getItem('userInfo');
-    return !!(userData && JSON.parse(userData));
+    return !!localStorage.getItem('userInfo');
   }
 
-  public setUserInfo(user: any){
+  public setUserInfo(user: string){
     localStorage.setItem('userInfo', JSON.stringify(user));
   }
 
-  postLoginAttempt = (email: any, password: any) => {
-    return this.http.post('http://localhost:3000/authenticate', { username: email, password });
+  public resetUserInfo(){
+    localStorage.removeItem('userInfo');
+  }
+
+  logIn = (username: string, password: string) => {
+    return this.http.post(environment.serverUrl + '/login', { username, password },
+      { withCredentials: true, responseType: 'text', observe: 'response' as 'response'}
+      );
   }
 
   logOut = () => {
     console.log('logging out');
-    return this.http.get('http://localhost:3000/logout');
+    this.resetUserInfo();
+    return this.http.get(environment.serverUrl + '/logout');
   }
 }
