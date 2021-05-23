@@ -18,34 +18,29 @@ const dbUrl = process.env.MONGOURL;
 const dbNev = "prfdb"
 const client = new MongoClient(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const generateHash = password => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-};
-
 const validatePassword = (lpw, password) => {
   return bcrypt.compareSync(lpw, password);
 };
 
-app.use(cors({
+app.use(cors({/*
   origin: function(origin, callback){
     if(!origin) return callback(null, true);
     if(allowedOrigins.indexOf(origin) === -1){
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
       return callback(new Error(msg), false);
     }
     return callback(null, true);
-  },
-  credentials: true,
+  },*/
+  credentials: true
 }));
 
 passport.serializeUser(function (user, done) {
-  if(!user) return done("Hiba - nincs user", undefined);
+  if(!user) return done("Hiba - nincs ilyen felhasználó", undefined);
   userObj = user;
   return done(null, user);
 });
 
 passport.deserializeUser(function (user, done) {
-  if(!user) return done("Hiba - nincs user, akit kileptethetnenk", undefined);
+  if(!user) return done("Hiba - nincs belépve felhasználó", undefined);
   userObj = null;
   return done(null, user);
 });
@@ -96,22 +91,6 @@ const isLoggedIn = (req, res, next) => {
   }
   return res.status(400).json({"statusCode": 400, "message": "not authenticated"})
 };
-
-app.post('/register', (req, res) => {
-  const user = req.body;
-  client.connect((err, db) => {
-    if (err) throw err;
-    const originalPwd = user.password;
-    user.password = generateHash(originalPwd);
-    const dbo = db.db(dbNev);
-    dbo.collection("Users").insertOne(user, function(err, res) {
-      if (err) throw err;
-      console.log("Successful registration!");
-    });
-  });
-  client.close();
-  res.status(200).json({ "statusCode": 200 });
-});
 
 app.get('/logout', isLoggedIn, (req, res) => {
   req.logout();
