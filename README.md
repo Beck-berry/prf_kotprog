@@ -1,4 +1,4 @@
-2021. 05. 17-18.
+## 2021. 05. 17-18.
 * init Angular app
 * NodeJS szerver: express, cors
 * autentikációs fájlok: LoginComponent, AuthService, AuthGuard
@@ -19,3 +19,15 @@ Az adatbázist és a Users táblát az Atlas felületén hoztam létre, ezért e
 egy database_init.js file-t is, amelyben kódból adom hozzá a kért szaboz usert.
 A felhasználók jelszavait a bcrypt segítségével titkosítottam.
 
+## 2021. 05. 20.
+* refactor
+* .env file használata
+* új komponensek: HomeComponent, LogoutComponent
+* adatbázis és Angular kapcsolat: kitten.ts és user.ts sémák
+* node-api és angular összekapcsolása (home.component és server.js)
+
+## 2021. 05. 23.
+* refactor
+* új komponensek: CartComponent, NotFoundComponent
+* Heroku server url használata localhost helyett
+* adatbázis feltöltése adatokkal
