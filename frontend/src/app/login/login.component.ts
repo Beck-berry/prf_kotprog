@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,23 +9,30 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  username: string | undefined;
-  password: string | undefined;
+  username: string;
+  password: string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {
+    this.username = '';
+    this.password = '';
+  }
 
   ngOnInit(): void {
+    if (this.authService.isAuthenticated()){
+      this.authService.resetUserInfo();
+    }
   }
 
   login(): void {
-    this.authService.postLoginAttempt(this.username, this.password).subscribe(res => {
-      //if (res.statusCode === 200) {
+    if (this.username !== '' && this.password !== '') {
+      this.authService.logIn(this.username, this.password).subscribe(res => {
+        console.log(res);
         this.authService.setUserInfo(this.username);
-        this.router.navigate(['any']);
-      //} else {
-       // alert('Hibás belépési adatok!');
-     // }
-    });
+        this.router.navigate(['home']);
+        }, error => {
+         console.log(error);
+         alert('Hibás belépési adatok!');
+      });
+    }
   }
-
 }
