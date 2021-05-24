@@ -29,10 +29,7 @@ import { LogoutComponent } from './logout/logout.component';
   ],
   providers: [],
   bootstrap: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    CartComponent
+    AppComponent
   ]
 })
 export class AppModule { }
