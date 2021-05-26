@@ -1,5 +1,6 @@
 package hu.prf.springbackend.models;
 
+import lombok.Getter;
 import javax.persistence.*;
 
 @Entity

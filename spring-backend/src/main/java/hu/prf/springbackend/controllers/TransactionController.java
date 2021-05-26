@@ -1,7 +1,7 @@
 package hu.prf.springbackend.controllers;
 
 import hu.prf.springbackend.models.Transaction;
-import hu.prf.springbackend.services.TransactionService;
+import hu.prf.springbackend.models.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,28 +10,26 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class TransactionController {
 
-    TransactionService transactionService;
+    TransactionServiceImpl transactionServiceImpl;
 
     @Autowired
-    public TransactionController(TransactionService transactionService){
-        this.transactionService = transactionService;
-        this.kittenService = kittenService;
+    public TransactionController(TransactionServiceImpl transactionServiceImpl){
+        this.transactionServiceImpl = transactionServiceImpl;
     }
 
     @PostMapping(path="/addTransaction", consumes = "application/json")
     public String addTransaction(@RequestBody Transaction transaction) {
         try {
-            this.transactionService.addTransaction(transaction);
-            return "Tranzakció sikeres.";
+            this.transactionServiceImpl.addTransaction(transaction);
+            return "Tranzakció sikeresen hozzáadva.";
         } catch (Exception e) {
-            System.out.println(e);
             return "Error";
         }
     }
 
     @GetMapping("/listTransactions")
     public String listTransactions() {
-        return String.format(transactionService.listTransactions().toString());
+        return transactionServiceImpl.listTransactions().toString();
     }
 
 }

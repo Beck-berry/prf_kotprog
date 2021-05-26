@@ -1,18 +1,16 @@
-package hu.prf.springbackend.services;
+package hu.prf.springbackend.models;
 
-import hu.prf.springbackend.models.Transaction;
-import hu.prf.springbackend.models.TransactionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TransactionService {
+public class TransactionServiceImpl implements TransactionService {
 
     private TransactionRepo transactionRepository;
 
     @Autowired
-    public TransactionService(TransactionRepo transactionRepository){
+    public TransactionServiceImpl(TransactionRepo transactionRepository){
         this.transactionRepository = transactionRepository;
     }
 

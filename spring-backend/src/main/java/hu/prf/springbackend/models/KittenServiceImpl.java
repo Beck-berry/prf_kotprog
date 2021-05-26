@@ -1,16 +1,16 @@
-package hu.prf.springbackend.services;
+package hu.prf.springbackend.models;
 
-import hu.prf.springbackend.models.Kitten;
-import hu.prf.springbackend.models.KittenRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class KittenService {
+public class KittenServiceImpl implements KittenService {
 
     private KittenRepo kittenRepo;
 
-    public KittenService(KittenRepo kittenRepo){
+    @Autowired
+    public KittenServiceImpl(KittenRepo kittenRepo){
         this.kittenRepo = kittenRepo;
     }
 
