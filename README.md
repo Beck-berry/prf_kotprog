@@ -31,3 +31,19 @@ A felhasználók jelszavait a bcrypt segítségével titkosítottam.
 * új komponensek: CartComponent, NotFoundComponent
 * Heroku server url használata localhost helyett
 * adatbázis feltöltése adatokkal
+
+## 2021. 05. 24.
+* refactor
+* spring server init
+
+A saját laptopom 4GB-os RAM-jának sajnos meggyűlt a baja a node server futtatásával (nem is biztos, hogy a kicsit RAM miatt, de milliószor lefagyott),
+ezért a korábbi fejlesztés során minimális alkalommal indítottam csak el akár az Angulart (ng serve), akár az API-t (node server.js),
+ami már gondolatban is veszélyes, ezért szerettem volna más környezetben kipróbálni a már megírt kódokat. A munkahelyi gépemen
+sikerült gyorsan összeállítani a fejlesztőkörnyezetet és futtatni az alkalmazásomat, azonban ezzel fény is derült a hibás működésekre.
+A bejelentkezés jól működött, a termékek listázása azonban már nem - az Angular hamarabb jelenítette meg az oldalt, mint hogy az
+adatbázis visszaadhatta volna az adatokat. Ebben az ügyben kezdtem el nyomozni.
+Emellett legeneráltam a Java Spring backend alapját.
+
+## 2021. 05. 25.
+* spring server okosítása
+
