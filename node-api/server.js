@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 require('dotenv').config();
 
 let userObj;
+let cicak;
 
 const dbUrl = process.env.MONGOURL;
 const dbNev = "prfdb"
@@ -21,6 +22,16 @@ const client = new MongoClient(dbUrl, { useNewUrlParser: true, useUnifiedTopolog
 const validatePassword = (lpw, password) => {
   return bcrypt.compareSync(lpw, password);
 };
+
+client.connect(function(err, db) {
+  if (err) throw err;
+  const dbo = db.db(dbNev);
+  dbo.collection("Kittens").find({}).toArray((err, result) => {
+    if (err) throw err;
+    cicak = result;
+  });
+});
+client.close();
 
 app.use(cors({/*
   origin: function(origin, callback){
@@ -71,7 +82,7 @@ app.post('/login', (req, res) => {
   if(req.body.username && req.body.password) {
     passport.authenticate('local', {}, (error, user) => {
       if(error) {
-        console.log(error)
+        console.log(error);
         return res.status(403).send(error);
       } else {
         req.logIn(user, (error) => {
@@ -85,15 +96,8 @@ app.post('/login', (req, res) => {
   }
 });
 
-const isLoggedIn = (req, res, next) => {
-  if (userObj) {
-    return next()
-  }
-  return res.status(400).json({"statusCode": 400, "message": "not authenticated"})
-};
-
-app.get('/logout', isLoggedIn, (req, res) => {
-  req.logout();
+app.get('/logout', (req, res) => {
+  req.logOut();
   res.status(200).json({ "statusCode": 200 });
 });
 
@@ -104,14 +108,7 @@ app.get('/', function (req, res) {
 })
 
 app.post('/home', (req, res) => {
-  client.connect(function(err, db) {
-    if (err) throw err;
-    const dbo = db.db(dbNev);
-    dbo.collection("Kittens").find({}).toArray((err, result) => {
-      if (err) throw err;
-      client.close();
-    });
-  });
+  res.send(cicak);
 })
 
 app.listen(process.env.PORT, () => {
