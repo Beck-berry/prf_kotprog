@@ -11,6 +11,7 @@ const app = new express();
 app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
 require('dotenv').config();
+const http = require('http');
 
 let userObj;
 let cicak;
@@ -33,14 +34,14 @@ client.connect(function(err, db) {
 });
 client.close();
 
-app.use(cors({/*
+app.use(cors({
   origin: function(origin, callback){
     if(!origin) return callback(null, true);
     if(allowedOrigins.indexOf(origin) === -1){
       return callback(new Error(msg), false);
     }
     return callback(null, true);
-  },*/
+  },
   credentials: true
 }));
 
@@ -110,6 +111,40 @@ app.get('/', function (req, res) {
 app.post('/home', (req, res) => {
   res.send(cicak);
 })
+
+app.post('/checkout', (req, res) => {
+  if (req.body.kittens) {
+    let ks = req.body.kittens;
+    ks.forEach(k => {
+      sendDataToSpringServer("/addTransaction",{
+        id: k.id,
+        date: Date.now(),
+        price: k.price
+      })
+      sendDataToSpringServer("/addKitten",{
+        id: k.id,
+        price: k.price
+      })
+    });
+    res.status(200).send("Sikeres vásárlás!")
+  }
+})
+
+function sendDataToSpringServer(path, obj){
+  let tr = JSON.stringify(obj)
+  let req = http.request({
+    host: process.env.SPRING_URL,
+    port: process.env.SPRING_PORT,
+    path: path,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': tr.length
+    }
+  });
+  req.write(tr);
+  req.end();
+}
 
 app.listen(process.env.PORT, () => {
   console.log('App is running at ', process.env.PORT)
