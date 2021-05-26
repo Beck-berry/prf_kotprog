@@ -11,7 +11,7 @@
   <tbody>
   <tr *ngFor="let kitten of kittens">
     <th scope="row">{{ kitten.id }}</th>
-    <td><img src="{{ kitten.img }}" alt="{{ kitten.img }}" /></td>
+    <td><img src="{{ kitten.image }}" width="200" alt="{{ kitten.image }}" /></td>
     <td>{{ kitten.name }}</td>
     <td>{{ kitten.desc }}</td>
     <td>{{ kitten.price }}</td>
@@ -19,3 +19,4 @@
   </tbody>
 </table>
 <p>Összesen {{ sumAr }}</p>
+<button class="btn btn-outline-dark mt-2" (click)="checkout()">Kész vagyok!</button>

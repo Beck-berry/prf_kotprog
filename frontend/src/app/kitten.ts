@@ -3,5 +3,5 @@ export interface Kitten {
   name: string;
   desc: string;
   price: number;
-  img: string;
+  image: string;
 }

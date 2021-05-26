@@ -12,11 +12,11 @@
   <tbody>
   <tr *ngFor="let kitten of kittens">
     <th scope="row">{{ kitten.id }}</th>
-    <td><img src="{{ kitten.img }}" alt="{{ kitten.img }}" /></td>
+    <td><img src="{{ kitten.image }}" width="450" alt="{{ kitten.image }}" /></td>
     <td>{{ kitten.name }}</td>
     <td>{{ kitten.desc }}</td>
     <td>{{ kitten.price }}</td>
-    <td><button (click)="addToCart(kitten)">Elviszem!</button></td>
+    <td><button class="btn btn-outline-danger" (click)="addToCart(kitten)">Elviszem!</button></td>
   </tr>
   </tbody>
 </table>

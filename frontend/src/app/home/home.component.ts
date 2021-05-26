@@ -22,15 +22,14 @@ export class HomeComponent implements OnInit {
   addToCart(k: Kitten){
     alert(k.name + ' hozzáadva a kosárhoz!');
     const cartAll = localStorage.getItem('cart');
+    let cart;
     if (cartAll){
-      const cart = JSON.parse(cartAll);
-      cart.push(k);
-      localStorage.setItem('cart', JSON.stringify(cart));
+      cart = JSON.parse(cartAll);
     } else {
-      const cart = [];
-      cart.push(k);
-      localStorage.setItem('cart', JSON.stringify(cart));
+      cart = [];
     }
+    cart.push(k);
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
 
 }
