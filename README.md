@@ -47,3 +47,8 @@ Emellett legeneráltam a Java Spring backend alapját.
 ## 2021. 05. 25.
 * spring server okosítása
 
+## 2021. 05. 26.
+* spring server okosítása
+* Elephant SQL kapcsolat
+
+
