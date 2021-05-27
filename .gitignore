@@ -2,6 +2,7 @@
 
 # compiled output
 frontend/dist
+node_api/public/
 
 # dependencies
 /frontend/node_modules

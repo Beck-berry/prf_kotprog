@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
 require('dotenv').config();
 const http = require('http');
+const path = require('path');
 
 let userObj;
 let cicak;
@@ -35,13 +36,13 @@ client.connect(function(err, db) {
 client.close();
 
 app.use(cors({
-  origin: function(origin, callback){
+  /*origin: function(origin, callback){
     if(!origin) return callback(null, true);
     if(allowedOrigins.indexOf(origin) === -1){
       return callback(new Error(msg), false);
     }
     return callback(null, true);
-  },
+  },*/
   credentials: true
 }));
 
@@ -102,10 +103,9 @@ app.get('/logout', (req, res) => {
   res.status(200).json({ "statusCode": 200 });
 });
 
-const angularPath = '../frontend/dist/PRF';
-app.use(express.static(angularPath, {}))
+app.use(express.static(path.join(__dirname, 'public'), {}))
 app.get('/', function (req, res) {
-  res.sendFile(angularPath + '/index.html', { root: __dirname })
+  res.sendFile(path.join(__dirname, 'public/index.html'), { root: __dirname })
 })
 
 app.post('/home', (req, res) => {
